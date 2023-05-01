@@ -1,0 +1,20 @@
+//@version=4
+study(title="RSI Above 45 and MACD Crossover", overlay=true)
+
+// Calculate RSI
+rsi = rsi(close, 14)
+
+// Calculate MACD
+[macdLine, signalLine, histLine] = macd(close, 12, 26, 9)
+
+// Check if RSI and MACD conditions are met
+rsiAbove45 = rsi > 45
+macdCrossover = crossover(macdLine, signalLine)
+
+// Plot RSI and MACD lines
+plot(rsi, color=color.blue)
+plot(macdLine, color=color.red)
+plot(signalLine, color=color.green)
+
+// Highlight chart when conditions are met
+bgcolor(rsiAbove45 and macdCrossover ? color.green : na, transp=50)
